@@ -1,0 +1,5 @@
+.env
+.venv/
+.venv_broken_20260306_0349/
+__pycache__/
+*.pyc

@@ -1,12 +1,26 @@
 import os
-from dotenv import load_dotenv
+import sys
 
-from langchain_openai import ChatOpenAI
-from langchain_core.tools import tool
-from langchain_core.messages import HumanMessage
-from langchain.agents import create_agent
+try:
+    from dotenv import load_dotenv
+    from langchain_openai import ChatOpenAI
+    from langchain_core.tools import tool
+    from langchain_core.messages import HumanMessage
+    from langchain.agents import create_agent
+except ImportError as exc:
+    missing = getattr(exc, "name", "a required package")
+    raise SystemExit(
+        "Missing dependency: "
+        f"{missing}\nInstall project dependencies with:\n"
+        "  python3 -m pip install -r requirements.txt"
+    ) from exc
 
 load_dotenv()
+
+if sys.version_info >= (3, 14):
+    print(
+        "Warning: Python 3.14+ may show compatibility warnings with current LangChain packages."
+    )
 
 @tool
 def calc(expression: str) -> str:
